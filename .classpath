@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="lib" path="lib/ibxm.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/jinput.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/jnlp.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/jogg-0.0.7.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/jorbis-0.0.15.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl_util_applet.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl_util.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/lwjgl.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/natives-linux.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/natives-mac.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/natives-windows.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/slick-examples.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/slick.jar" sourcepath="C:/My Documents/lib/slick/src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/tinylinepp.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/My%20Documents/lib/slick/javadoc/"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TracyInvaders/lib/windows"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
