@@ -41,7 +41,7 @@ public class GameState extends BasicGameState {
 		largeInvader1 = new LargeInvader(LARGE_INVADER_Y[1], LARGE_INVADER_Y[1]);
 		/*for (int i = 0; i < 30) {
 		 * 
-			sdfgh
+			
 		}*/
 	}
 
