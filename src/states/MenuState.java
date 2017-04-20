@@ -20,7 +20,7 @@ public class MenuState extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawString("PRESS ENTER TO START", 540, 300);
+		g.drawString("PRESS ENTER TO START", 525, 300);
 
 	}
 
