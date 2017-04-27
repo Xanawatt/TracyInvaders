@@ -40,8 +40,11 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
-		/*largeInvader0 = new LargeInvader(LARGE_INVADER_X[0], LARGE_INVADER_Y[0]);
-		largeInvader1 = new LargeInvader(LARGE_INVADER_Y[1], LARGE_INVADER_Y[1]);*/
+		/*
+		 * largeInvader0 = new LargeInvader(LARGE_INVADER_X[0],
+		 * LARGE_INVADER_Y[0]); largeInvader1 = new
+		 * LargeInvader(LARGE_INVADER_Y[1], LARGE_INVADER_Y[1]);
+		 */
 		int xStart = 100;
 		int yStart = 250;
 		for (int i = 0; i < largeInvader.length; i++) {
@@ -56,27 +59,36 @@ public class GameState extends BasicGameState {
 		}
 	}
 
+	float loops = 0;
+
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		player.move(gc, g);
 		player.shoot(gc, g);
-		for (int i = 0; i < largeInvader.length; i++) {
-			if (largeInvader[i].isDead == true) {
-				largeInvader[i].largeInvaderAnimation.stop();
-			} else {
-				largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY());
+		g.drawString("" + largeInvader[9].getX(), 250, 250);
+		/*if (largeInvader[9].getX() > 1100 && largeInvader[9].getY() != 250) {
+			for (int i = 0; i < largeInvader.length; i++) {
+				largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY() + 50);
 			}
-			g.drawString(Integer.toString(playerScore), 640, 10);
-		}
-		
-		for (int i = 0; i < smallInvader.length; i++) {
-			if (smallInvader[i].isDead == true) {
-				smallInvader[i].smallInvaderAnimation.stop();
-			} else {
-				smallInvader[i].animate(gc, g, smallInvader[i].getX(), smallInvader[i].getY());
+		} else {*/
+			for (int i = 0; i < largeInvader.length; i++) {
+				if (largeInvader[i].isDead == true) {
+					largeInvader[i].largeInvaderAnimation.stop();
+				} else {
+					largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY());
+				}
 			}
-			g.drawString(Integer.toString(playerScore), 640, 10);
-		}
+
+			for (int i = 0; i < smallInvader.length; i++) {
+				if (smallInvader[i].isDead == true) {
+					smallInvader[i].smallInvaderAnimation.stop();
+				} else {
+					smallInvader[i].animate(gc, g, smallInvader[i].getX(), smallInvader[i].getY());
+				}
+				g.drawString(Integer.toString(playerScore), 640, 10);
+			}
+	//}
+		loops += 1f;
 	}
 
 	@Override

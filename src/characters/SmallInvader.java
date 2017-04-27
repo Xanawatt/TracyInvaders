@@ -14,7 +14,7 @@ public class SmallInvader {
 	private Image SMALL_INVADER_FRAME1;
 	private Image SMALL_INVADER_FRAME2;
 	private Rectangle smallInvader;
-	private final int SMALL_INVADER_WIDTH = 48;
+	private final int SMALL_INVADER_WIDTH = 32;
 	private final int SMALL_INVADER_HEIGHT = 32;
 	public Animation smallInvaderAnimation;
 	private final Image[] SMALL_INVADER_ANIMATION_FRAMES = new Image[2];
@@ -44,7 +44,7 @@ public class SmallInvader {
 	public void animate(GameContainer gc, Graphics g, int x, int y) {
 		if (isBeingShot() != true) {
 			Color previousColor = g.getColor();
-			// g.setColor(Color.black);
+			g.setColor(Color.black);
 			g.fill(smallInvader);
 			g.drawAnimation(smallInvaderAnimation, x, y);
 			g.setColor(previousColor);
