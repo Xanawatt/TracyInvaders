@@ -14,14 +14,17 @@ import org.newdawn.slick.state.StateBasedGame;
 import characters.LargeInvader;
 import characters.Player;
 import characters.SmallInvader;
+import characters.UFO;
 import main.Main;
 
 public class GameState extends BasicGameState {
 	public static Player player;
+	public static UFO ufo;
 	public static LargeInvader largeInvader0;
 	public static LargeInvader largeInvader1;
 	public static int playerXPosition = 610;
 	public static int playerYPosition = 500;
+	public static int ticks;
 
 	public static final int LARGE_INVADER1_X = 250;
 	public static final int LARGE_INVADER1_Y = 250;
@@ -40,6 +43,7 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
+		ufo = new UFO(150,150);
 		/*largeInvader0 = new LargeInvader(LARGE_INVADER_X[0], LARGE_INVADER_Y[0]);
 		largeInvader1 = new LargeInvader(LARGE_INVADER_Y[1], LARGE_INVADER_Y[1]);*/
 		int xStart = 100;
@@ -54,19 +58,26 @@ public class GameState extends BasicGameState {
 			smallInvader[i] = new SmallInvader(xStart, yStart);
 			xStart += 100;
 		}
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		ticks++;
 		player.move(gc, g);
 		player.shoot(gc, g);
+		if (UFO.isDead) {
+			
+		} else {
+			UFO.move(gc, g);
+		}
+		
 		for (int i = 0; i < largeInvader.length; i++) {
 			if (largeInvader[i].isDead == true) {
 				largeInvader[i].largeInvaderAnimation.stop();
 			} else {
 				largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY());
 			}
-			g.drawString(Integer.toString(playerScore), 640, 10);
 		}
 		
 		for (int i = 0; i < smallInvader.length; i++) {

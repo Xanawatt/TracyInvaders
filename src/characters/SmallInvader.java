@@ -44,7 +44,7 @@ public class SmallInvader {
 	public void animate(GameContainer gc, Graphics g, int x, int y) {
 		if (isBeingShot() != true) {
 			Color previousColor = g.getColor();
-			// g.setColor(Color.black);
+			g.setColor(Color.black);
 			g.fill(smallInvader);
 			g.drawAnimation(smallInvaderAnimation, x, y);
 			g.setColor(previousColor);
