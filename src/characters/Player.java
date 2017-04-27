@@ -78,10 +78,7 @@ public class Player {
 		
 		if (spaceState == true) {
 			
-			if (projectile.getMaxY() > 0 && !GameState.largeInvader0.isBeingShot() &&
-											!GameState.largeInvader0.isDead &&
-											!GameState.largeInvader1.isBeingShot() &&
-											!GameState.largeInvader1.isDead) {
+			if (projectile.getMaxY() > 0) {
 				projectile.setLocation(projectile.getX() + projectileVelocity.getX(), projectile.getY() + projectileVelocity.getY());
 				canShoot = false;
 			} else {

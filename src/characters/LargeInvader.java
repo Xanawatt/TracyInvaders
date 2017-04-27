@@ -27,7 +27,8 @@ public class LargeInvader {
 	public Animation largeInvaderAnimation;
 	private final Image[] LARGE_INVADER_ANIMATION_FRAMES = new Image[2];
 	public boolean isDead = false;
-	
+	private int x;
+	private int y;
 
 	public LargeInvader(int x, int y) throws SlickException {
 		LARGE_INVADER_FRAME1 = new Image("textures/tracyDepot2/largeTracy1.png");
@@ -36,27 +37,44 @@ public class LargeInvader {
 		LARGE_INVADER_ANIMATION_FRAMES[1] = LARGE_INVADER_FRAME2.getScaledCopy(0.5f);
 		largeInvader = new Rectangle(x, y, LARGE_INVADER_WIDTH, LARGE_INVADER_HEIGHT);
 		largeInvaderAnimation = new Animation(LARGE_INVADER_ANIMATION_FRAMES, 100);
+		this.x = x;
+		this.y = y;
 	}
-	
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
 	public void animate(GameContainer gc, Graphics g, int x, int y) {
-		Color previousColor = g.getColor();
-		//g.setColor(Color.black);
-		g.fill(largeInvader);
-		g.drawAnimation(largeInvaderAnimation, x, y);
-		g.setColor(previousColor);
+		if (isBeingShot() != true) {
+			Color previousColor = g.getColor();
+			// g.setColor(Color.black);
+			g.fill(largeInvader);
+			g.drawAnimation(largeInvaderAnimation, x, y);
+			g.setColor(previousColor);
+		} else {
+
+		}
 	}
-	
+
 	public boolean isBeingShot() {
-		if (GameState.player.projectile.getMinY() <= largeInvader.getMaxY() &&
-			GameState.player.projectile.getMaxX() < largeInvader.getMaxX() &&
-			GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
+		if (GameState.player.projectile.getMinY() <= largeInvader.getMaxY()
+				&& GameState.player.projectile.getMaxX() < largeInvader.getMaxX()
+				&& GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
 			isDead = true;
 			GameState.playerScore++;
+			GameState.player.projectile.setLocation(1281, 721);
+			GameState.player.spaceState = false;
+			GameState.player.canShoot = true;
 			return true;
 		} else {
 			return false;
 		}
+
 	}
-	
-	
+
 }
