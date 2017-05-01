@@ -35,7 +35,7 @@ public class GameState extends BasicGameState {
 	public static SmallInvader[] smallInvader = new SmallInvader[10];
 
 	public static int playerScore = 0;
-
+	public static boolean exit = false;
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
@@ -60,40 +60,86 @@ public class GameState extends BasicGameState {
 	}
 
 	float loops = 0;
-
+	float xTrans = 0.5f;
+	String direction = "right";
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		player.move(gc, g);
 		player.shoot(gc, g);
-		g.drawString("" + largeInvader[9].getX(), 250, 250);
-		/*if (largeInvader[9].getX() > 1100 && largeInvader[9].getY() != 250) {
-			for (int i = 0; i < largeInvader.length; i++) {
-				largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY() + 50);
-			}
-		} else {*/
-			for (int i = 0; i < largeInvader.length; i++) {
-				if (largeInvader[i].isDead == true) {
-					largeInvader[i].largeInvaderAnimation.stop();
-				} else {
-					largeInvader[i].animate(gc, g, largeInvader[i].getX(), largeInvader[i].getY());
+		
+		for (int i = 0; i < largeInvader.length; i++) {
+			if (largeInvader[i].isDead == true) {
+				largeInvader[i].largeInvaderAnimation.stop();
+			} else {
+				if (largeInvader[i].getY() >= Main.GAME_HEIGHT) {
+					exit = true;
+				}
+				if (direction.equals("right")) {
+					if (largeInvader[i].getX() > 1100) {
+						for (int j = 0; j < largeInvader.length; j++) {
+							largeInvader[j].animate(gc, g, largeInvader[j].getX() - 1, largeInvader[j].getY() + 50);
+						}
+						direction = "left";
+					} else {
+						largeInvader[i].animate(gc, g, largeInvader[i].getX() + xTrans, largeInvader[i].getY());
+					}
+				} else if (direction.equals("left")) {
+					if (largeInvader[i].getX() < 100) {
+						for (int j = 0; j < largeInvader.length; j++) {
+							largeInvader[j].animate(gc, g, largeInvader[j].getX() + 1, largeInvader[j].getY() + 50);
+						}
+						direction = "right";
+					} else {
+						largeInvader[i].animate(gc, g, largeInvader[i].getX() - xTrans, smallInvader[i].getY());
+					}
 				}
 			}
+		}
 
-			for (int i = 0; i < smallInvader.length; i++) {
-				if (smallInvader[i].isDead == true) {
-					smallInvader[i].smallInvaderAnimation.stop();
-				} else {
-					smallInvader[i].animate(gc, g, smallInvader[i].getX(), smallInvader[i].getY());
+		for (int i = 0; i < smallInvader.length; i++) {
+			if (smallInvader[i].isDead == true) {
+				smallInvader[i].smallInvaderAnimation.stop();
+			} else {
+				if (largeInvader[i].getY() >= Main.GAME_HEIGHT) {
+					exit = true;
 				}
-				g.drawString(Integer.toString(playerScore), 640, 10);
+				if (direction.equals("right")) {
+					if (smallInvader[i].getX() > 1100) {
+						for (int j = 0; j < smallInvader.length; j++) {
+							smallInvader[j].animate(gc, g, smallInvader[j].getX() - 1, smallInvader[j].getY() + 50);
+						}
+						direction = "left";
+					} else {
+						smallInvader[i].animate(gc, g, smallInvader[i].getX() + xTrans, smallInvader[i].getY());
+					}
+				} else if (direction.equals("left")) {
+					if (smallInvader[i].getX() < 100) {
+						for (int j = 0; j < smallInvader.length; j++) {
+							smallInvader[j].animate(gc, g, smallInvader[j].getX() + 1, smallInvader[j].getY() + 50);
+						}
+						direction = "right";
+					} else {
+						smallInvader[i].animate(gc, g, smallInvader[i].getX() - xTrans, smallInvader[i].getY());
+					}
+				}
 			}
-	//}
+		}
+		/*
+		 * if (largeInvader[9].getX() > 1100 && largeInvader[9].getY() == 250) {
+		 * for (int i = 0; i < largeInvader.length; i++) {
+		 * largeInvader[i].animate(gc, g, largeInvader[i].getX(),
+		 * largeInvader[i].getY() + 50); } } else {
+		 */
+
+		// }
 		loops += 1f;
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-
+		if (exit == true) {
+			sbg.enterState(Main.MENU_STATE);
+		}
 	}
 
 	@Override

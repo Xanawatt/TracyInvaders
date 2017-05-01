@@ -28,7 +28,7 @@ public class LargeInvader {
 	private final Image[] LARGE_INVADER_ANIMATION_FRAMES = new Image[2];
 	public boolean isDead = false;
 	private float x;
-	private float y;
+	private int y;
 
 	public LargeInvader(int x, int y) throws SlickException {
 		LARGE_INVADER_FRAME1 = new Image("textures/tracyDepot2/largeTracy1.png");
@@ -45,11 +45,11 @@ public class LargeInvader {
 		return x;
 	}
 
-	public float getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void animate(GameContainer gc, Graphics g, float x, float y) {
+	public void animate(GameContainer gc, Graphics g, float x, int y) {
 		if (isBeingShot() != true) {
 			Color previousColor = g.getColor();
 			g.setColor(Color.black);
@@ -57,15 +57,16 @@ public class LargeInvader {
 			largeInvader.setLocation(x, y);
 			g.drawAnimation(largeInvaderAnimation, x, y);
 			g.setColor(previousColor);
-			this.x = x;
-			this.y = y;
 		} else {
 
 		}
+		this.x = x;
+		this.y = y;
 	}
 	
 	public boolean isBeingShot() {
-		if (GameState.player.projectile.getMinY() <= largeInvader.getMaxY() && GameState.player.projectile.getMinY() >= largeInvader.getMinY()
+		if (GameState.player.projectile.getMinY() <= largeInvader.getMaxY()
+				&& GameState.player.projectile.getMinY() >= largeInvader.getMinY()
 				&& GameState.player.projectile.getMaxX() < largeInvader.getMaxX()
 				&& GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
 			isDead = true;
