@@ -51,10 +51,10 @@ public class UFO {
 			g.setColor(previousColor);
 		}
 
-		g.drawString("" + ufo.getX(), 0, 0);
+		/*g.drawString("" + ufo.getX(), 0, 0);
 		g.drawString("" + countTicks, 10, 10);
 		g.drawString("" + GameState.ticks, 0, 20);
-		g.drawString("" + GameState.deathTicks, 0, 30);
+		g.drawString("" + GameState.deathTicks, 0, 30);*/
 		
 		if (GameState.ticks >= 250) {
 			countTicks = false;

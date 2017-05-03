@@ -21,7 +21,7 @@ import states.GameState;
 public class LargeInvader {
 	private Image LARGE_INVADER_FRAME1;
 	private Image LARGE_INVADER_FRAME2;
-	private Rectangle largeInvader;
+	public Rectangle largeInvader;
 	private final int LARGE_INVADER_WIDTH = 48;
 	private final int LARGE_INVADER_HEIGHT = 32;
 	public Animation largeInvaderAnimation;

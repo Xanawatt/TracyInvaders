@@ -73,6 +73,7 @@ public class GameState extends BasicGameState {
 		}
 		player.move(gc, g);
 		player.shoot(gc, g);
+		player.checkForCollisions(gc, g);
 		UFO.move(gc, g);
 		
 		for (int i = 0; i < largeInvader.length; i++) {
