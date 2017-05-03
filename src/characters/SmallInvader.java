@@ -14,12 +14,12 @@ public class SmallInvader {
 	private Image SMALL_INVADER_FRAME1;
 	private Image SMALL_INVADER_FRAME2;
 	public Rectangle smallInvader;
-	private final int SMALL_INVADER_WIDTH = 48;
+	private final int SMALL_INVADER_WIDTH = 32;
 	private final int SMALL_INVADER_HEIGHT = 32;
 	public Animation smallInvaderAnimation;
 	private final Image[] SMALL_INVADER_ANIMATION_FRAMES = new Image[2];
 	public boolean isDead = false;
-	private int x;
+	private float x;
 	private int y;
 
 	public SmallInvader(int x, int y) throws SlickException {
@@ -33,7 +33,7 @@ public class SmallInvader {
 		this.y = y;
 	}
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -41,20 +41,24 @@ public class SmallInvader {
 		return y;
 	}
 
-	public void animate(GameContainer gc, Graphics g, int x, int y) {
+	public void animate(GameContainer gc, Graphics g, float x, int y) {
 		if (isBeingShot() != true) {
 			Color previousColor = g.getColor();
 			g.setColor(Color.black);
 			g.fill(smallInvader);
+			smallInvader.setLocation(x, y);
 			g.drawAnimation(smallInvaderAnimation, x, y);
 			g.setColor(previousColor);
 		} else {
 
 		}
+		this.x = x;
+		this.y = y;
 	}
 
 	public boolean isBeingShot() {
 		if (GameState.player.projectile.getMinY() <= smallInvader.getMaxY()
+				&& GameState.player.projectile.getMinY() >= smallInvader.getMinY()
 				&& GameState.player.projectile.getMaxX() < smallInvader.getMaxX()
 				&& GameState.player.projectile.getMinX() > smallInvader.getMinX()) {
 			isDead = true;
