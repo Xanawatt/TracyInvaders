@@ -71,9 +71,8 @@ public class GameState extends BasicGameState {
 			if (largeInvader[i].isDead == true) {
 				largeInvader[i].largeInvaderAnimation.stop();
 			} else {
-				if (largeInvader[i].getY() >= Main.GAME_HEIGHT) {
-					exit = true;
-				}
+				largeInvader[i].tryToShoot(gc, g);
+				
 				if (direction.equals("right")) {
 					if (largeInvader[i].getX() > 1100) {
 						for (int j = 0; j < largeInvader.length; j++) {
@@ -90,7 +89,7 @@ public class GameState extends BasicGameState {
 						}
 						direction = "right";
 					} else {
-						largeInvader[i].animate(gc, g, largeInvader[i].getX() - xTrans, smallInvader[i].getY());
+						largeInvader[i].animate(gc, g, largeInvader[i].getX() - xTrans, largeInvader[i].getY());
 					}
 				}
 			}
@@ -100,6 +99,7 @@ public class GameState extends BasicGameState {
 			if (smallInvader[i].isDead == true) {
 				smallInvader[i].smallInvaderAnimation.stop();
 			} else {
+				
 				if (largeInvader[i].getY() >= Main.GAME_HEIGHT) {
 					exit = true;
 				}
