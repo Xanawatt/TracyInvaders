@@ -38,13 +38,13 @@ public class Player {
 		g.texture(player, PLAYER_IMAGE.getScaledCopy(0.5f), true);
 		if (gc.getInput().isKeyDown(Input.KEY_A)) {
 			if (player.getMinX() > 0) {
-				player.setX(player.getX() - 10.0f);
-				GameState.playerXPosition -= 10;
+				player.setX(player.getX() - 6.0f);
+				GameState.playerXPosition -= 6;
 			}
 		} else if (gc.getInput().isKeyDown(Input.KEY_D)) {
 			if (player.getMaxX() < Main.GAME_WIDTH) {
-				player.setX(player.getX() + 10.0f);
-				GameState.playerXPosition += 10;
+				player.setX(player.getX() + 6.0f);
+				GameState.playerXPosition += 6;
 			}
 		}
 

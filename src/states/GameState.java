@@ -23,7 +23,7 @@ public class GameState extends BasicGameState {
 	public static LargeInvader largeInvader0;
 	public static LargeInvader largeInvader1;
 	public static int playerXPosition = 610;
-	public static int playerYPosition = 500;
+	public static int playerYPosition = 630;
 	public static int ticks;
 	public static int deathTicks;
 
