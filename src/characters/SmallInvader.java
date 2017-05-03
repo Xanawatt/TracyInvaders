@@ -13,7 +13,7 @@ import states.GameState;
 public class SmallInvader {
 	private Image SMALL_INVADER_FRAME1;
 	private Image SMALL_INVADER_FRAME2;
-	private Rectangle smallInvader;
+	public Rectangle smallInvader;
 	private final int SMALL_INVADER_WIDTH = 32;
 	private final int SMALL_INVADER_HEIGHT = 32;
 	public Animation smallInvaderAnimation;

@@ -14,14 +14,18 @@ import org.newdawn.slick.state.StateBasedGame;
 import characters.LargeInvader;
 import characters.Player;
 import characters.SmallInvader;
+import characters.UFO;
 import main.Main;
 
 public class GameState extends BasicGameState {
 	public static Player player;
+	public static UFO ufo;
 	public static LargeInvader largeInvader0;
 	public static LargeInvader largeInvader1;
 	public static int playerXPosition = 610;
-	public static int playerYPosition = 500;
+	public static int playerYPosition = 630;
+	public static int ticks;
+	public static int deathTicks;
 
 	public static final int LARGE_INVADER1_X = 250;
 	public static final int LARGE_INVADER1_Y = 250;
@@ -40,11 +44,7 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
-		/*
-		 * largeInvader0 = new LargeInvader(LARGE_INVADER_X[0],
-		 * LARGE_INVADER_Y[0]); largeInvader1 = new
-		 * LargeInvader(LARGE_INVADER_Y[1], LARGE_INVADER_Y[1]);
-		 */
+		ufo = new UFO(0,150);
 		int xStart = 100;
 		int yStart = 250;
 		for (int i = 0; i < largeInvader.length; i++) {
@@ -57,6 +57,7 @@ public class GameState extends BasicGameState {
 			smallInvader[i] = new SmallInvader(xStart, yStart);
 			xStart += 100;
 		}
+		
 	}
 
 	float loops = 0;
@@ -64,8 +65,17 @@ public class GameState extends BasicGameState {
 	String direction = "right";
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		if(UFO.countTicks == true){
+			ticks++;
+		}
+		
+		if(UFO.isDead == true){
+			deathTicks++;
+		}
 		player.move(gc, g);
 		player.shoot(gc, g);
+		player.checkForCollisions(gc, g);
+		UFO.move(gc, g);
 		
 		for (int i = 0; i < largeInvader.length; i++) {
 			if (largeInvader[i].isDead == true) {
