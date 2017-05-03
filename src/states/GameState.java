@@ -65,6 +65,7 @@ public class GameState extends BasicGameState {
 	String direction = "right";
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		g.drawString("" + playerScore, 600, 0);
 		if(UFO.countTicks == true){
 			ticks++;
 		}
