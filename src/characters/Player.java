@@ -58,9 +58,9 @@ public class Player {
 				// Insert collision mechanics
 			}
 		}
-		for (int i = 0; i < GameState.largeInvader.length; i++) {
-			if (player.intersects(GameState.largeInvader[i].largeInvader)
-					&& GameState.largeInvader[i].isDead == false) {
+		for (int i = 0; i < GameState.largeInvaderRow1.length; i++) {
+			if (player.intersects(GameState.largeInvaderRow1[i].largeInvader)
+					&& GameState.largeInvaderRow1[i].isDead == false) {
 				g.drawString("Collision", 0, 0);
 				// Insert collision mechanics
 			}
