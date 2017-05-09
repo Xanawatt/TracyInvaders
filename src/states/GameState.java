@@ -155,7 +155,7 @@ public class GameState extends BasicGameState {
 							}
 							for (int k = 0; k < smallInvader.length; k++) {
 								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][j].getX() + 1,
+									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
 											smallInvader[k][l].getY() + 50);
 								}
 							}
@@ -205,7 +205,7 @@ public class GameState extends BasicGameState {
 							}
 							for (int k = 0; k < largeInvader.length; k++) {
 								for (int l = 0; l < largeInvader[k].length; l++) {
-									largeInvader[k][l].animate(gc, g, largeInvader[k][j].getX() + 1,
+									largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() + 1,
 											largeInvader[k][l].getY() + 50);
 								}
 							}
