@@ -51,18 +51,20 @@ public class Player {
 	}
 
 	public void checkForCollisions(GameContainer gc, Graphics g) {
-		for (int i = 0; i < GameState.smallInvader.length; i++) {
-			if (player.intersects(GameState.smallInvader[i].smallInvader)
-					&& GameState.smallInvader[i].isDead == false) {
+		/*for (int i = 0; i < GameState.smallInvaderRow1.length; i++) {
+			if (player.intersects(GameState.smallInvaderRow1[i].smallInvader)
+					&& GameState.smallInvaderRow1[i].isDead == false) {
 				g.drawString("Collision", 0, 0);
 				// Insert collision mechanics
 			}
-		}
+		}*/
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
-			if (player.intersects(GameState.largeInvader[i].largeInvader)
-					&& GameState.largeInvader[i].isDead == false) {
-				g.drawString("Collision", 0, 0);
-				// Insert collision mechanics
+			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
+				if (player.intersects(GameState.largeInvader[i][j].largeInvader)
+						&& GameState.largeInvader[i][j].isDead == false) {
+					g.drawString("Collision", 0, 0);
+					// Insert collision mechanics
+				}
 			}
 		}
 		
