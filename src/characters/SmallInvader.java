@@ -1,5 +1,6 @@
 package characters;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -8,6 +9,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import main.Main;
 import states.GameState;
 
 public class SmallInvader {
@@ -21,6 +23,13 @@ public class SmallInvader {
 	public boolean isDead = false;
 	private float x;
 	private int y;
+	public Rectangle projectile;
+	private Vector2f projectileVelocity;
+	private Image PROJECTILE_IMAGE;
+	private final int PROJECTILE_WIDTH = 2;
+	private final int PROJECTILE_HEIGHT = 12;
+	public boolean canShoot = true;
+	public boolean spaceState = false;
 
 	public SmallInvader(int x, int y) throws SlickException {
 		SMALL_INVADER_FRAME1 = new Image("textures/tracyDepot2/smallTracy1.png");
@@ -71,6 +80,31 @@ public class SmallInvader {
 			return false;
 		}
 
+	}
+	
+	public void tryToShoot(GameContainer gc, Graphics g) {
+		g.texture(projectile, PROJECTILE_IMAGE, true);
+		if (Math.random() < .001) {
+			spaceState = true;
+			if (canShoot == true) {
+				projectile.setLocation(getX() + 25, getY());
+				canShoot = false;
+			}
+		}
+
+		if (spaceState == true) {
+
+			if (projectile.getMaxY() < Main.GAME_HEIGHT) {
+				projectile.setLocation(projectile.getX() + projectileVelocity.getX(),
+						projectile.getY() + projectileVelocity.getY());
+				canShoot = false;
+			} else {
+				// projectile.setLocation(player.getX() + 25, player.getY());
+				projectile.setLocation(1281, 721);
+				spaceState = false;
+				canShoot = true;
+			}
+		}
 	}
 	
 
