@@ -40,6 +40,11 @@ public class SmallInvader {
 		smallInvaderAnimation = new Animation(SMALL_INVADER_ANIMATION_FRAMES, 100);
 		this.x = x;
 		this.y = y;
+		
+		PROJECTILE_IMAGE = new Image("textures/tracyDepot2/projectile.png");
+		projectile = new Rectangle(1281, 721, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
+		projectileVelocity = new Vector2f(0, -5);
+		
 	}
 
 	public float getX() {
@@ -96,7 +101,7 @@ public class SmallInvader {
 
 			if (projectile.getMaxY() < Main.GAME_HEIGHT) {
 				projectile.setLocation(projectile.getX() + projectileVelocity.getX(),
-						projectile.getY() + projectileVelocity.getY());
+						projectile.getY() + projectileVelocity.getY() * -1);
 				canShoot = false;
 			} else {
 				// projectile.setLocation(player.getX() + 25, player.getY());
