@@ -35,7 +35,7 @@ public class Player {
 		PROJECTILE_IMAGE = new Image("textures/tracyDepot2/projectile.png");
 		player = new Rectangle(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 		projectile = new Rectangle(1281, 721, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
-		projectileVelocity = new Vector2f(0, -5);
+		projectileVelocity = new Vector2f(0, -10);
 	}
 
 	public void move(GameContainer gc, Graphics g) {
@@ -66,7 +66,8 @@ public class Player {
 				GameState.smallInvader[i][j].isDead = true;
 			}
 		}
-		sbg.enterState(2, new RotateTransition(), new EmptyTransition());
+		//sbg.enterState(2, new RotateTransition(), new EmptyTransition());
+		GameState.exit = true;
 	}
 
 	public void checkForCollisions(GameContainer gc, Graphics g, StateBasedGame sbg) {

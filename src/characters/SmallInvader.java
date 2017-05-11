@@ -89,7 +89,7 @@ public class SmallInvader {
 	
 	public void tryToShoot(GameContainer gc, Graphics g) {
 		g.texture(projectile, PROJECTILE_IMAGE, true);
-		if (Math.random() < .001) {
+		if (Math.random() < .0005) {
 			spaceState = true;
 			if (canShoot == true) {
 				projectile.setLocation(getX() + 25, getY());
