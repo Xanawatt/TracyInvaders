@@ -51,10 +51,10 @@ public class GameState extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
-		ufo = new UFO(0, 150);
+		ufo = new UFO(0, 50);
 
 		int xStart = 100;
-		int yStart = 200;
+		int yStart = 100;
 		for (int i = 0; i < largeInvader.length; i++) {
 			for (int j = 0; j < largeInvader[i].length; j++) {
 				largeInvader[i][j] = new LargeInvader(xStart, yStart);
@@ -64,14 +64,14 @@ public class GameState extends BasicGameState {
 			yStart += 50;
 		}
 
-		xStart = 100;
-		yStart = 300;
+		xStart = 108;
+		yStart = 200;
 		for (int i = 0; i < smallInvader.length; i++) {
 			for (int j = 0; j < smallInvader[i].length; j++) {
 				smallInvader[i][j] = new SmallInvader(xStart, yStart);
 				xStart += 100;
 			}
-			xStart = 100;
+			xStart = 108;
 			yStart += 50;
 
 		}
@@ -116,7 +116,7 @@ public class GameState extends BasicGameState {
 		}
 		player.move(gc, g);
 		player.shoot(gc, g);
-		player.checkForCollisions(gc, g);
+		player.checkForCollisions(gc, g, sbg);
 		UFO.move(gc, g);
 
 		for (int i = 0; i < largeInvader.length; i++) {
@@ -174,7 +174,18 @@ public class GameState extends BasicGameState {
 				if (smallInvader[i][j].isDead == true) {
 					smallInvader[i][j].smallInvaderAnimation.stop();
 				} else {
+
 					// smallInvader[i][j].tryToShoot(gc, g);
+
+
+					//smallInvader[i][j].tryToShoot(gc, g);
+					if (smallInvader[i][j].getY() > 600) {
+						exit = true;
+					}
+
+					smallInvader[i][j].tryToShoot(gc, g);
+
+
 					if (direction.equals("right")) {
 						if (smallInvader[i][j].getX() > 1100) {
 							for (int k = 0; k < smallInvader.length; k++) {

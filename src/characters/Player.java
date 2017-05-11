@@ -9,6 +9,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
+import org.newdawn.slick.state.transition.RotateTransition;
+import org.newdawn.slick.state.transition.VerticalSplitTransition;
 
 import main.Main;
 import states.GameState;
@@ -49,23 +53,58 @@ public class Player {
 		}
 
 	}
+	
+	public void enterTransition(GameContainer gc, Graphics g, StateBasedGame sbg) {
+		for (int i = 0; i < GameState.largeInvader.length; i++) {
+			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
+				GameState.largeInvader[i][j].isDead = true;
+			}
+		}
+		
+		for (int i = 0; i < GameState.smallInvader.length; i++) {
+			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
+				GameState.smallInvader[i][j].isDead = true;
+			}
+		}
+		sbg.enterState(2, new RotateTransition(), new EmptyTransition());
+	}
 
-	public void checkForCollisions(GameContainer gc, Graphics g) {
+	public void checkForCollisions(GameContainer gc, Graphics g, StateBasedGame sbg) {
 		for (int i = 0; i < GameState.smallInvader.length; i++) {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
 				if (player.intersects(GameState.smallInvader[i][j].smallInvader)
 						&& GameState.smallInvader[i][j].isDead == false) {
 					g.drawString("Collision", 0, 0);
-				// Insert collision mechanics
+					enterTransition(gc, g, sbg);
 				}
 			}
 		}
+		
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
 				if (player.intersects(GameState.largeInvader[i][j].largeInvader)
 						&& GameState.largeInvader[i][j].isDead == false) {
 					g.drawString("Collision", 0, 0);
 					// Insert collision mechanics
+					enterTransition(gc, g, sbg);
+				}
+			}
+		}
+		
+		for (int i = 0; i < GameState.smallInvader.length; i++) {
+			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
+				if (player.intersects(GameState.smallInvader[i][j].projectile)) {
+					g.drawString("Collision", 0, 0);
+					enterTransition(gc, g, sbg);
+				}
+			}
+		}
+		
+		for (int i = 0; i < GameState.largeInvader.length; i++) {
+			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
+				if (player.intersects(GameState.largeInvader[i][j].projectile)) {
+					g.drawString("Collision", 0, 0);
+					enterTransition(gc, g, sbg);
 				}
 			}
 		}
