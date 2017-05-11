@@ -69,6 +69,12 @@ public class Player {
 				}
 			}
 		}
+		
+		for (int i = 0; i < GameState.largeInvader.length; i++) {
+			if (player.intersects(GameState.largeInvader[i].projectile)) {
+				g.drawString("Collision", 0, 0);
+			}
+		}
 	}
 
 	public void shoot(GameContainer gc, Graphics g) {
