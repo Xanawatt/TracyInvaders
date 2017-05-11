@@ -75,10 +75,33 @@ public class GameState extends BasicGameState {
 			yStart += 50;
 
 		}
+
+		/*
+		 * for (int i = 0; i < largeInvaderRow1.length; i++) {
+		 * largeInvaderRow1[i] = new LargeInvader(xStart, yStart); xStart +=
+		 * 100; }
+		 * 
+		 * yStart += 100; for (int i = 0; i < largeInvaderRow2.length; i++) {
+		 * largeInvaderRow2[i] = new LargeInvader(xStart, yStart); xStart +=
+		 * 100;
+		 * 
+		 * }
+		 */
+
+		/*
+		 * xStart = 100; yStart = 400; for (int i = 0; i <
+		 * smallInvaderRow1.length; i++) { smallInvaderRow1[i] = new
+		 * SmallInvader(xStart, yStart); xStart += 100; } yStart += 100; for
+		 * (int i = 0; i < smallInvaderRow2.length; i++) { smallInvaderRow2[i] =
+		 * new SmallInvader(xStart, yStart); xStart += 100; } yStart+= 100; for
+		 * (int i = 0; i < smallInvaderRow3.length; i++) { smallInvaderRow3[i] =
+		 * new SmallInvader(xStart, yStart); xStart += 100; }
+		 */
+
 	}
 
 	float loops = 0;
-	float xTrans = 0.3f;
+	float xTrans = 0.5f;
 	String direction = "right";
 
 	@Override
@@ -101,9 +124,6 @@ public class GameState extends BasicGameState {
 				if (largeInvader[i][j].isDead == true) {
 					largeInvader[i][j].largeInvaderAnimation.stop();
 				} else {
-					if (largeInvader[i][j].getY() > 600) {
-						exit = true;
-					}
 					largeInvader[i][j].tryToShoot(gc, g);
 					if (direction.equals("right")) {
 						if (largeInvader[i][j].getX() > 1100) {
@@ -115,7 +135,7 @@ public class GameState extends BasicGameState {
 							}
 							for (int k = 0; k < smallInvader.length; k++) {
 								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX(),
+									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() - 1,
 											smallInvader[k][l].getY() + 50);
 								}
 							}
@@ -135,7 +155,7 @@ public class GameState extends BasicGameState {
 							}
 							for (int k = 0; k < smallInvader.length; k++) {
 								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX(),
+									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
 											smallInvader[k][l].getY() + 50);
 								}
 							}
@@ -155,12 +175,16 @@ public class GameState extends BasicGameState {
 					smallInvader[i][j].smallInvaderAnimation.stop();
 				} else {
 
+					// smallInvader[i][j].tryToShoot(gc, g);
+
+
 					//smallInvader[i][j].tryToShoot(gc, g);
 					if (smallInvader[i][j].getY() > 600) {
 						exit = true;
 					}
 
 					smallInvader[i][j].tryToShoot(gc, g);
+
 
 					if (direction.equals("right")) {
 						if (smallInvader[i][j].getX() > 1100) {
@@ -210,7 +234,7 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
-			sbg.enterState(Main.GAMEOVER_STATE);
+			sbg.enterState(Main.MENU_STATE);
 		}
 	}
 
