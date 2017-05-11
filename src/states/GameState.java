@@ -93,7 +93,7 @@ public class GameState extends BasicGameState {
 		}
 		player.move(gc, g);
 		player.shoot(gc, g);
-		player.checkForCollisions(gc, g);
+		player.checkForCollisions(gc, g, sbg);
 		UFO.move(gc, g);
 
 		for (int i = 0; i < largeInvader.length; i++) {
@@ -154,10 +154,14 @@ public class GameState extends BasicGameState {
 				if (smallInvader[i][j].isDead == true) {
 					smallInvader[i][j].smallInvaderAnimation.stop();
 				} else {
+
 					//smallInvader[i][j].tryToShoot(gc, g);
 					if (smallInvader[i][j].getY() > 600) {
 						exit = true;
 					}
+
+					smallInvader[i][j].tryToShoot(gc, g);
+
 					if (direction.equals("right")) {
 						if (smallInvader[i][j].getX() > 1100) {
 							for (int k = 0; k < smallInvader.length; k++) {
