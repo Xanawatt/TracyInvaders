@@ -148,7 +148,7 @@ public class GameState extends BasicGameState {
 	}
 
 	float loops = 0;
-	float xTrans = 0.3f;
+	float xTrans = 1f;
 	String direction = "right";
 
 	@Override
@@ -281,9 +281,11 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
-			if (originalHighScore < highScore)
-				
-			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+			if (originalHighScore < highScore) {
+				sbg.enterState(Main.HIGH_SCORE_STATE);
+			} else {
+				sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+			}
 		}
 	}
 
