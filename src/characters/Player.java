@@ -157,12 +157,12 @@ public class Player {
 	}
 
 	public void destroyProjectiles(Graphics g) {
-		for (int i = 0; i < GameState.smallInvader.length; i++) {
+/*		for (int i = 0; i < GameState.smallInvader.length; i++) {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
 				g.destroy();
 			}
 
-		}
+		}*/
 
 	}
 
