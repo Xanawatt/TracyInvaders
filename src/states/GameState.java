@@ -1,5 +1,12 @@
 package states;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -10,6 +17,8 @@ import org.newdawn.slick.geom.RoundedRectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.EmptyTransition;
+import org.newdawn.slick.state.transition.RotateTransition;
 
 import characters.LargeInvader;
 import characters.Player;
@@ -47,6 +56,15 @@ public class GameState extends BasicGameState {
 	public static int playerScore = 0;
 	public static boolean exit = false;
 	
+
+	public static int originalHighScore = 0;
+	public static int highScore = 0;
+	public static String highScoreString = "";
+	
+	String fileName = "highScore.txt";
+	
+	String line = null;
+  
 	public static int playerLives = 3;
 	public static Image lifeImage;
 
@@ -80,10 +98,30 @@ public class GameState extends BasicGameState {
 			yStart += 50;
 
 		}
+
+		try {
+			FileReader fileReader = new FileReader(fileName);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			while((line = bufferedReader.readLine()) != null) {
+				highScoreString += line;
+			}
+			bufferedReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Unable to open file '" + fileName + "'");
+			e.printStackTrace();
+		} catch (IOException e) {
+			System.out.println("Error reading file '" + fileName +"'");
+			e.printStackTrace();	
+		}
+		
+		originalHighScore = Integer.parseInt(highScoreString);
+		highScore = originalHighScore;
+
 		
 		for (int i = 0; i < playerLives; i++){
 			
 		}
+
 
 		/*
 		 * for (int i = 0; i < largeInvaderRow1.length; i++) {
@@ -110,13 +148,20 @@ public class GameState extends BasicGameState {
 	}
 
 	float loops = 0;
-	float xTrans = 0.5f;
+	float xTrans = 0.3f;
 	String direction = "right";
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString("" + playerScore, 600, 0);
+
+		g.drawString("High Score: " + highScore, 250, 0);
+		if (playerScore > highScore) {
+			highScore = playerScore;
+		}
+
 		g.drawString("" + playerLives, 0, 10);
+
 		if (UFO.countTicks == true) {
 			ticks++;
 		}
@@ -236,7 +281,9 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
-			sbg.enterState(Main.MENU_STATE);
+			if (originalHighScore < highScore)
+				
+			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
 		}
 	}
 
