@@ -15,7 +15,7 @@ public class HighScoreState extends BasicGameState {
 	int highScore;
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		
+		/*
 		try {
 			FileWriter fileWriter = new FileWriter(fileName);
 			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -27,7 +27,7 @@ public class HighScoreState extends BasicGameState {
 			System.out.println("Error writing to file '" + fileName + "'");
 			e.printStackTrace();
 		}
-		
+		*/
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class HighScoreState extends BasicGameState {
 	@Override
 	public int getID() {
 		
-		return 0;
+		return 3;
 	}
 
 }
