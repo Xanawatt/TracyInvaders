@@ -46,11 +46,16 @@ public class GameState extends BasicGameState {
 
 	public static int playerScore = 0;
 	public static boolean exit = false;
+	
+	public static int playerLives = 3;
+	public static Image lifeImage;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
+
+		lifeImage = new Image("textures/tracyDepot2/player.png");
 		ufo = new UFO(0, 50);
 
 		int xStart = 100;
@@ -74,6 +79,10 @@ public class GameState extends BasicGameState {
 			xStart = 108;
 			yStart += 50;
 
+		}
+		
+		for (int i = 0; i < playerLives; i++){
+			
 		}
 
 		/*
@@ -107,6 +116,7 @@ public class GameState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString("" + playerScore, 600, 0);
+		g.drawString("" + playerLives, 0, 10);
 		if (UFO.countTicks == true) {
 			ticks++;
 		}
@@ -174,18 +184,10 @@ public class GameState extends BasicGameState {
 				if (smallInvader[i][j].isDead == true) {
 					smallInvader[i][j].smallInvaderAnimation.stop();
 				} else {
-
-					// smallInvader[i][j].tryToShoot(gc, g);
-
-
 					//smallInvader[i][j].tryToShoot(gc, g);
 					if (smallInvader[i][j].getY() > 600) {
 						exit = true;
 					}
-
-					smallInvader[i][j].tryToShoot(gc, g);
-
-
 					if (direction.equals("right")) {
 						if (smallInvader[i][j].getX() > 1100) {
 							for (int k = 0; k < smallInvader.length; k++) {
