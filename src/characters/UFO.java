@@ -65,7 +65,7 @@ public class UFO {
 			if (ufo.getMaxX() > -49) {
 				ufo.setX(ufo.getX() + 5.0f);
 			}
-			if (ufo.getX() > Main.GAME_WIDTH) {
+			if (ufo.getX() > Main.GAME_WIDTH && Player.deathPause == false) {
 				ufo.setX(-50);
 				countTicks = true;
 			}

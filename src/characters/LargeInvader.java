@@ -81,7 +81,7 @@ public class LargeInvader {
 				&& GameState.player.projectile.getMaxX() < largeInvader.getMaxX()
 				&& GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
 			isDead = true;
-			GameState.playerScore++;
+			GameState.playerScore = GameState.playerScore + 5;
 			GameState.player.projectile.setLocation(1281, 721);
 			GameState.player.spaceState = false;
 			GameState.player.canShoot = true;
