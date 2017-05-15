@@ -1,7 +1,5 @@
 package characters;
 
-import javax.management.timer.Timer;
-
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -12,7 +10,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.RotateTransition;
-import org.newdawn.slick.state.transition.VerticalSplitTransition;
 
 import main.Main;
 import states.GameState;
@@ -29,6 +26,7 @@ public class Player {
 	private final int PROJECTILE_HEIGHT = 12;
 	public boolean canShoot = true;
 	public boolean spaceState = false;
+	boolean doneColliding = false;
 
 	public Player(int x, int y) throws SlickException {
 		PLAYER_IMAGE = new Image("textures/tracyDepot2/player.png");
@@ -53,14 +51,14 @@ public class Player {
 		}
 
 	}
-	
+
 	public void enterTransition(GameContainer gc, Graphics g, StateBasedGame sbg) {
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
 				GameState.largeInvader[i][j].isDead = true;
 			}
 		}
-		
+
 		for (int i = 0; i < GameState.smallInvader.length; i++) {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
 				GameState.smallInvader[i][j].isDead = true;
@@ -80,35 +78,44 @@ public class Player {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
 				if (player.intersects(GameState.largeInvader[i][j].largeInvader)
 						&& GameState.largeInvader[i][j].isDead == false) {
 					g.drawString("Collision", 0, 0);
 					// Insert collision mechanics
-					enterTransition(gc, g, sbg);
+					// killPlayer(gc, g);
+					// enterTransition(gc, g, sbg);
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < GameState.smallInvader.length; i++) {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
 				if (player.intersects(GameState.smallInvader[i][j].projectile)) {
 					g.drawString("Collision", 0, 0);
-					enterTransition(gc, g, sbg);
+					// Insert collision mechanics
+					killPlayer(gc, g);
+					// enterTransition(gc, g, sbg);
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
-				if (player.intersects(GameState.largeInvader[i][j].projectile)) {
-					g.drawString("Collision", 0, 0);
-					enterTransition(gc, g, sbg);
+				if (doneColliding == false) {
+					if (player.intersects(GameState.largeInvader[i][j].projectile)) {
+						g.drawString("Collision", 0, 0);
+						// Insert collision mechanics
+						killPlayer(gc, g);
+						// enterTransition(gc, g, sbg);
+					}
 				}
 			}
 		}
+
+		g.drawString("" + doneColliding, 50, 50);
 	}
 
 	public void shoot(GameContainer gc, Graphics g) {
@@ -140,7 +147,13 @@ public class Player {
 
 	}
 
-	public void shoot() {
+	public void killPlayer(GameContainer gc, Graphics g) {
+		if (GameState.playerLives >= 1) {
+			
+		} else {
+			
+		}
+		
 
 	}
 }

@@ -56,6 +56,7 @@ public class GameState extends BasicGameState {
 	public static int playerScore = 0;
 	public static boolean exit = false;
 	
+
 	public static int originalHighScore = 0;
 	public static int highScore = 0;
 	public static String highScoreString = "";
@@ -63,11 +64,16 @@ public class GameState extends BasicGameState {
 	String fileName = "highScore.txt";
 	
 	String line = null;
+  
+	public static int playerLives = 3;
+	public static Image lifeImage;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
+
+		lifeImage = new Image("textures/tracyDepot2/player.png");
 		ufo = new UFO(0, 50);
 
 		int xStart = 100;
@@ -92,6 +98,7 @@ public class GameState extends BasicGameState {
 			yStart += 50;
 
 		}
+
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -109,6 +116,12 @@ public class GameState extends BasicGameState {
 		
 		originalHighScore = Integer.parseInt(highScoreString);
 		highScore = originalHighScore;
+
+		
+		for (int i = 0; i < playerLives; i++){
+			
+		}
+
 
 		/*
 		 * for (int i = 0; i < largeInvaderRow1.length; i++) {
@@ -141,10 +154,14 @@ public class GameState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString("" + playerScore, 600, 0);
+
 		g.drawString("High Score: " + highScore, 250, 0);
 		if (playerScore > highScore) {
 			highScore = playerScore;
 		}
+
+		g.drawString("" + playerLives, 0, 10);
+
 		if (UFO.countTicks == true) {
 			ticks++;
 		}
@@ -212,18 +229,10 @@ public class GameState extends BasicGameState {
 				if (smallInvader[i][j].isDead == true) {
 					smallInvader[i][j].smallInvaderAnimation.stop();
 				} else {
-
-					// smallInvader[i][j].tryToShoot(gc, g);
-
-
 					//smallInvader[i][j].tryToShoot(gc, g);
 					if (smallInvader[i][j].getY() > 600) {
 						exit = true;
 					}
-
-					smallInvader[i][j].tryToShoot(gc, g);
-
-
 					if (direction.equals("right")) {
 						if (smallInvader[i][j].getX() > 1100) {
 							for (int k = 0; k < smallInvader.length; k++) {
