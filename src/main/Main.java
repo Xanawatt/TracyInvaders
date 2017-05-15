@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import states.GameState;
 import states.GameoverState;
+import states.HighScoreState;
 import states.MenuState;
 
 public class Main extends StateBasedGame {
@@ -20,12 +21,14 @@ public class Main extends StateBasedGame {
 	public static final int MENU_STATE = 0;
 	public static final int GAME_STATE = 1;
 	public static final int GAMEOVER_STATE = 2;
+	public static final int HIGH_SCORE_STATE = 3;
 
 	public Main(String name) {
 		super(name);
 		this.addState(new MenuState());
 		this.addState(new GameState());
 		this.addState(new GameoverState());
+		this.addState(new HighScoreState());
 	}
 
 	@Override

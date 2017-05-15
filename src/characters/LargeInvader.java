@@ -70,8 +70,6 @@ public class LargeInvader {
 			largeInvader.setLocation(x, y);
 			g.drawAnimation(largeInvaderAnimation, x, y);
 			g.setColor(previousColor);
-		} else {
-
 		}
 		this.x = x;
 		this.y = y;
@@ -96,7 +94,7 @@ public class LargeInvader {
 
 	public void tryToShoot(GameContainer gc, Graphics g) {
 		g.texture(projectile, PROJECTILE_IMAGE, true);
-		if (Math.random() < .001) {
+		if (Math.random() < .0005) {
 			spaceState = true;
 			if (canShoot == true) {
 				projectile.setLocation(getX() + 25, getY());
@@ -105,7 +103,6 @@ public class LargeInvader {
 		}
 
 		if (spaceState == true) {
-
 			if (projectile.getMaxY() < Main.GAME_HEIGHT) {
 				projectile.setLocation(projectile.getX() + projectileVelocity.getX(),
 						projectile.getY() + projectileVelocity.getY());
