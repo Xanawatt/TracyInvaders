@@ -77,6 +77,7 @@ public class SmallInvader {
 				&& GameState.player.projectile.getMinX() > smallInvader.getMinX()) {
 			isDead = true;
 			GameState.playerScore++;
+			GameState.deadCount++;
 			GameState.player.projectile.setLocation(1281, 721);
 			GameState.player.spaceState = false;
 			GameState.player.canShoot = true;
