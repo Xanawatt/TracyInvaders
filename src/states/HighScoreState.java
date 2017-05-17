@@ -23,16 +23,7 @@ public class HighScoreState extends BasicGameState implements KeyListener {
 	public String input3 = null;
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		try {
-			FileWriter fileWriter = new FileWriter(fileName);
-			BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-			bufferedWriter.write(Integer.toString(highScore));
-			bufferedWriter.close();
-		} catch (IOException e) {
-			System.out.println("Error writing to file '" + fileName + "'");
-			e.printStackTrace();
-		}
+		
 	}
 
 	@Override

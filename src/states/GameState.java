@@ -67,6 +67,8 @@ public class GameState extends BasicGameState {
   
 	public static int playerLives = 3;
 	public static Image lifeImage;
+	
+	public static int deadCount = 0;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
@@ -148,11 +150,18 @@ public class GameState extends BasicGameState {
 	}
 
 	float loops = 0;
-	float xTrans = 1f;
+	float xTrans = 0.3f;
 	String direction = "right";
-
+	boolean allDead = false;
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
+		
+		g.drawString("DeadCount:   " + deadCount, 0, 60);
+		if (deadCount == 50) {
+			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+		}
+		
+		
 		g.drawString("" + playerScore, 600, 0);
 
 		g.drawString("High Score: " + highScore, 250, 0);
@@ -282,10 +291,18 @@ public class GameState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
 			if (originalHighScore < highScore) {
-				sbg.enterState(Main.HIGH_SCORE_STATE);
-			} else {
-				sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+				try {
+					FileWriter fileWriter = new FileWriter(fileName);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+					bufferedWriter.write(Integer.toString(highScore));
+					bufferedWriter.close();
+				} catch (IOException e) {
+					System.out.println("Error writing to file '" + fileName + "'");
+					e.printStackTrace();
+				}
 			}
+			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
 		}
 	}
 
