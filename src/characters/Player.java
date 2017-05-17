@@ -24,6 +24,11 @@ public class Player {
 	private final int PLAYER_HEIGHT = 32;
 	private final int PROJECTILE_WIDTH = 2;
 	private final int PROJECTILE_HEIGHT = 12;
+	public int shotCount;
+	public static float accuracyPercent;
+	public static boolean countTicks = false;
+	public static boolean invuln = false;
+	public static boolean deathPause = false;
 	public boolean canShoot = true;
 	public boolean spaceState = false;
 	boolean doneColliding = false;
@@ -64,7 +69,7 @@ public class Player {
 				GameState.smallInvader[i][j].isDead = true;
 			}
 		}
-		//sbg.enterState(2, new RotateTransition(), new EmptyTransition());
+		// sbg.enterState(2, new RotateTransition(), new EmptyTransition());
 		GameState.exit = true;
 	}
 
@@ -73,7 +78,7 @@ public class Player {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
 				if (player.intersects(GameState.smallInvader[i][j].smallInvader)
 						&& GameState.smallInvader[i][j].isDead == false) {
-					g.drawString("Collision", 0, 0);
+					// g.drawString("Collision", 0, 0);
 					enterTransition(gc, g, sbg);
 				}
 			}
@@ -82,40 +87,33 @@ public class Player {
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
 				if (player.intersects(GameState.largeInvader[i][j].largeInvader)
-						&& GameState.largeInvader[i][j].isDead == false) {
-					g.drawString("Collision", 0, 0);
+						&& GameState.largeInvader[i][j].isDead == false && invuln == false) {
+					// g.drawString("Collision", 0, 0);
 					// Insert collision mechanics
-					// killPlayer(gc, g);
-					// enterTransition(gc, g, sbg);
+					killPlayer(g);
 				}
 			}
 		}
 
 		for (int i = 0; i < GameState.smallInvader.length; i++) {
 			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
-				if (player.intersects(GameState.smallInvader[i][j].projectile)) {
-					g.drawString("Collision", 0, 0);
+				if (player.intersects(GameState.smallInvader[i][j].projectile) && invuln == false) {
+					// g.drawString("Collision", 0, 0);
 					// Insert collision mechanics
-					killPlayer(gc, g);
-					// enterTransition(gc, g, sbg);
+					killPlayer(g);
 				}
 			}
 		}
 
 		for (int i = 0; i < GameState.largeInvader.length; i++) {
 			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
-				if (doneColliding == false) {
-					if (player.intersects(GameState.largeInvader[i][j].projectile)) {
-						g.drawString("Collision", 0, 0);
-						// Insert collision mechanics
-						killPlayer(gc, g);
-						// enterTransition(gc, g, sbg);
-					}
+				if (player.intersects(GameState.largeInvader[i][j].projectile) && invuln == false) {
+					// g.drawString("Collision", 0, 0);
+					// Insert collision mechanics
+					killPlayer(g);
 				}
 			}
 		}
-
-		g.drawString("" + doneColliding, 50, 50);
 	}
 
 	public void shoot(GameContainer gc, Graphics g) {
@@ -127,6 +125,8 @@ public class Player {
 			spaceState = true;
 			if (canShoot == true) {
 				projectile.setLocation(player.getX() + 25, player.getY());
+				shotCount++;
+				//accuracyPercent = deadCount/shotCount
 				canShoot = false;
 			}
 		}
@@ -147,13 +147,34 @@ public class Player {
 
 	}
 
-	public void killPlayer(GameContainer gc, Graphics g) {
+	public void killPlayer(Graphics g) {
 		if (GameState.playerLives >= 1) {
-			
-		} else {
-			
+			moveProjectiles(g);
+			deathPause = true;
+			GameState.playerLives--;
+			GameState.playerTicks = 0;
+			countTicks = true;
 		}
-		
+		if (GameState.playerLives == 0) {
+			GameState.exit = true;
+		}
 
 	}
+
+	public void moveProjectiles(Graphics g) {
+		for (int i = 0; i < GameState.largeInvader.length; i++) {
+			for (int j = 0; j < GameState.largeInvader[i].length; j++) {
+				GameState.largeInvader[i][j].projectile.setLocation(-10, 0);
+			}
+
+		}
+		for (int i = 0; i < GameState.smallInvader.length; i++) {
+			for (int j = 0; j < GameState.smallInvader[i].length; j++) {
+				GameState.smallInvader[i][j].projectile.setLocation(-10, 0);
+			}
+
+		}
+
+	}
+
 }

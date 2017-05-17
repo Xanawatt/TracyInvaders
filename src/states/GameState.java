@@ -35,6 +35,8 @@ public class GameState extends BasicGameState {
 	public static int playerYPosition = 630;
 	public static int ticks;
 	public static int deathTicks;
+	public static int playerTicks;
+	public static int invulnTicks;
 
 	public static final int LARGE_INVADER1_X = 250;
 	public static final int LARGE_INVADER1_Y = 250;
@@ -55,16 +57,15 @@ public class GameState extends BasicGameState {
 
 	public static int playerScore = 0;
 	public static boolean exit = false;
-	
 
 	public static int originalHighScore = 0;
 	public static int highScore = 0;
 	public static String highScoreString = "";
-	
+
 	String fileName = "highScore.txt";
-	
+
 	String line = null;
-  
+
 	public static int playerLives = 3;
 	public static Image lifeImage;
 	
@@ -104,7 +105,7 @@ public class GameState extends BasicGameState {
 		try {
 			FileReader fileReader = new FileReader(fileName);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			while((line = bufferedReader.readLine()) != null) {
+			while ((line = bufferedReader.readLine()) != null) {
 				highScoreString += line;
 			}
 			bufferedReader.close();
@@ -112,18 +113,12 @@ public class GameState extends BasicGameState {
 			System.out.println("Unable to open file '" + fileName + "'");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println("Error reading file '" + fileName +"'");
-			e.printStackTrace();	
+			System.out.println("Error reading file '" + fileName + "'");
+			e.printStackTrace();
 		}
-		
+
 		originalHighScore = Integer.parseInt(highScoreString);
 		highScore = originalHighScore;
-
-		
-		for (int i = 0; i < playerLives; i++){
-			
-		}
-
 
 		/*
 		 * for (int i = 0; i < largeInvaderRow1.length; i++) {
@@ -169,10 +164,26 @@ public class GameState extends BasicGameState {
 			highScore = playerScore;
 		}
 
-		g.drawString("" + playerLives, 0, 10);
+		g.drawString("Lives:" + playerLives, 0, 10);
+		g.drawString("" + playerTicks, 100, 100);
 
 		if (UFO.countTicks == true) {
 			ticks++;
+		}
+
+		if (Player.countTicks == true) {
+			playerTicks++;
+			if (playerTicks >= 250) {
+				Player.deathPause = false;
+				Player.countTicks = false;
+			}
+		}
+
+		if (Player.invuln == true) {
+			invulnTicks++;
+			if (invulnTicks >= 100) {
+				Player.invuln = false;
+			}
 		}
 
 		if (UFO.isDead == true) {
@@ -183,115 +194,121 @@ public class GameState extends BasicGameState {
 		player.checkForCollisions(gc, g, sbg);
 		UFO.move(gc, g);
 
-		for (int i = 0; i < largeInvader.length; i++) {
-			for (int j = 0; j < largeInvader[i].length; j++) {
-				if (largeInvader[i][j].isDead == true) {
-					largeInvader[i][j].largeInvaderAnimation.stop();
-				} else {
-					largeInvader[i][j].tryToShoot(gc, g);
-					if (direction.equals("right")) {
-						if (largeInvader[i][j].getX() > 1100) {
-							for (int k = 0; k < largeInvader.length; k++) {
-								for (int l = 0; l < largeInvader[k].length; l++) {
-									largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() - 1,
-											largeInvader[k][l].getY() + 50);
+		if (player.deathPause == false) {
+			for (int i = 0; i < largeInvader.length; i++) {
+				for (int j = 0; j < largeInvader[i].length; j++) {
+					if (largeInvader[i][j].isDead == true) {
+						largeInvader[i][j].largeInvaderAnimation.stop();
+					} else {
+						largeInvader[i][j].tryToShoot(gc, g);
+						if (direction.equals("right")) {
+							if (largeInvader[i][j].getX() > 1100) {
+								for (int k = 0; k < largeInvader.length; k++) {
+									for (int l = 0; l < largeInvader[k].length; l++) {
+										largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() - 1,
+												largeInvader[k][l].getY() + 50);
+									}
 								}
-							}
-							for (int k = 0; k < smallInvader.length; k++) {
-								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() - 1,
-											smallInvader[k][l].getY() + 50);
+								for (int k = 0; k < smallInvader.length; k++) {
+									for (int l = 0; l < smallInvader[k].length; l++) {
+										smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() - 1,
+												smallInvader[k][l].getY() + 50);
+									}
 								}
-							}
-							direction = "left";
-						} else {
-							largeInvader[i][j].animate(gc, g, largeInvader[i][j].getX() + xTrans,
-									largeInvader[i][j].getY());
+								direction = "left";
+							} else {
+								largeInvader[i][j].animate(gc, g, largeInvader[i][j].getX() + xTrans,
+										largeInvader[i][j].getY());
 
-						}
-					} else if (direction.equals("left")) {
-						if (largeInvader[i][j].getX() < 100) {
-							for (int k = 0; k < largeInvader.length; k++) {
-								for (int l = 0; l < largeInvader[k].length; l++) {
-									largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() + 1,
-											largeInvader[k][l].getY() + 50);
-								}
 							}
-							for (int k = 0; k < smallInvader.length; k++) {
-								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
-											smallInvader[k][l].getY() + 50);
+						} else if (direction.equals("left")) {
+							if (largeInvader[i][j].getX() < 100) {
+								for (int k = 0; k < largeInvader.length; k++) {
+									for (int l = 0; l < largeInvader[k].length; l++) {
+										largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() + 1,
+												largeInvader[k][l].getY() + 50);
+									}
 								}
+								for (int k = 0; k < smallInvader.length; k++) {
+									for (int l = 0; l < smallInvader[k].length; l++) {
+										smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
+												smallInvader[k][l].getY() + 50);
+									}
+								}
+								direction = "right";
+							} else {
+								largeInvader[i][j].animate(gc, g, largeInvader[i][j].getX() - xTrans,
+										largeInvader[i][j].getY());
 							}
-							direction = "right";
-						} else {
-							largeInvader[i][j].animate(gc, g, largeInvader[i][j].getX() - xTrans,
-									largeInvader[i][j].getY());
 						}
 					}
 				}
 			}
-		}
 
-		for (int i = 0; i < smallInvader.length; i++) {
-			for (int j = 0; j < smallInvader[i].length; j++) {
-				if (smallInvader[i][j].isDead == true) {
-					smallInvader[i][j].smallInvaderAnimation.stop();
-				} else {
-					//smallInvader[i][j].tryToShoot(gc, g);
-					if (smallInvader[i][j].getY() > 600) {
-						exit = true;
-					}
-					if (direction.equals("right")) {
-						if (smallInvader[i][j].getX() > 1100) {
-							for (int k = 0; k < smallInvader.length; k++) {
-								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() - 1,
-											smallInvader[k][l].getY() + 50);
-								}
-							}
-							for (int k = 0; k < largeInvader.length; k++) {
-								for (int l = 0; l < largeInvader[k].length; l++) {
-									largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() - 1,
-											largeInvader[k][l].getY() + 50);
-								}
-							}
-							direction = "left";
-						} else {
-							smallInvader[i][j].animate(gc, g, smallInvader[i][j].getX() + xTrans,
-									smallInvader[i][j].getY());
-
+			for (int i = 0; i < smallInvader.length; i++) {
+				for (int j = 0; j < smallInvader[i].length; j++) {
+					if (smallInvader[i][j].isDead == true) {
+						smallInvader[i][j].smallInvaderAnimation.stop();
+					} else {
+						smallInvader[i][j].tryToShoot(gc, g);
+						if (smallInvader[i][j].getY() > 600) {
+							exit = true;
 						}
-					} else if (direction.equals("left")) {
-						if (smallInvader[i][j].getX() < 100) {
-							for (int k = 0; k < smallInvader.length; k++) {
-								for (int l = 0; l < smallInvader[k].length; l++) {
-									smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
-											smallInvader[k][l].getY() + 50);
+						if (direction.equals("right")) {
+							if (smallInvader[i][j].getX() > 1100) {
+								for (int k = 0; k < smallInvader.length; k++) {
+									for (int l = 0; l < smallInvader[k].length; l++) {
+										smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() - 1,
+												smallInvader[k][l].getY() + 50);
+									}
 								}
-							}
-							for (int k = 0; k < largeInvader.length; k++) {
-								for (int l = 0; l < largeInvader[k].length; l++) {
-									largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() + 1,
-											largeInvader[k][l].getY() + 50);
+								for (int k = 0; k < largeInvader.length; k++) {
+									for (int l = 0; l < largeInvader[k].length; l++) {
+										largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() - 1,
+												largeInvader[k][l].getY() + 50);
+									}
 								}
+								direction = "left";
+							} else {
+								smallInvader[i][j].animate(gc, g, smallInvader[i][j].getX() + xTrans,
+										smallInvader[i][j].getY());
+
 							}
-							direction = "right";
-						} else {
-							smallInvader[i][j].animate(gc, g, smallInvader[i][j].getX() - xTrans,
-									smallInvader[i][j].getY());
+						} else if (direction.equals("left")) {
+							if (smallInvader[i][j].getX() < 100) {
+								for (int k = 0; k < smallInvader.length; k++) {
+									for (int l = 0; l < smallInvader[k].length; l++) {
+										smallInvader[k][l].animate(gc, g, smallInvader[k][l].getX() + 1,
+												smallInvader[k][l].getY() + 50);
+									}
+								}
+								for (int k = 0; k < largeInvader.length; k++) {
+									for (int l = 0; l < largeInvader[k].length; l++) {
+										largeInvader[k][l].animate(gc, g, largeInvader[k][l].getX() + 1,
+												largeInvader[k][l].getY() + 50);
+									}
+								}
+								direction = "right";
+							} else {
+								smallInvader[i][j].animate(gc, g, smallInvader[i][j].getX() - xTrans,
+										smallInvader[i][j].getY());
+							}
 						}
 					}
 				}
 			}
+
+		} else {
+
 		}
+
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
 			if (originalHighScore < highScore) {
-				try {
+        try {
 					FileWriter fileWriter = new FileWriter(fileName);
 					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -304,6 +321,7 @@ public class GameState extends BasicGameState {
 			}
 			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
 		}
+
 	}
 
 	@Override

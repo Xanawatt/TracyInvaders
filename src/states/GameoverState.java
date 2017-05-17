@@ -6,6 +6,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import characters.Player;
+
 public class GameoverState extends BasicGameState {
 
 	@Override
@@ -16,6 +18,7 @@ public class GameoverState extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		g.drawString("GAME OVER!!!", 250, 250);
+		g.drawString("" + Player.accuracyPercent, 10, 10);
 		
 	}
 
