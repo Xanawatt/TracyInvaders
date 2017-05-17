@@ -241,7 +241,7 @@ public class GameState extends BasicGameState {
 					if (smallInvader[i][j].isDead == true) {
 						smallInvader[i][j].smallInvaderAnimation.stop();
 					} else {
-						// smallInvader[i][j].tryToShoot(gc, g);
+						smallInvader[i][j].tryToShoot(gc, g);
 						if (smallInvader[i][j].getY() > 600) {
 							exit = true;
 						}
@@ -298,10 +298,11 @@ public class GameState extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		if (exit == true) {
-			if (originalHighScore < highScore)
-
-				sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+			if (originalHighScore < highScore) {
+			}
+			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
 		}
+
 	}
 
 	@Override
