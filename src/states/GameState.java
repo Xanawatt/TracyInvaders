@@ -299,7 +299,7 @@ public class GameState extends BasicGameState {
 			}
 
 		} else {
-
+			g.drawString("Boom, you're dead boi", Main.GAME_WIDTH/2, Main.GAME_HEIGHT/2);
 		}
 
 	}
