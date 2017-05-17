@@ -68,11 +68,44 @@ public class GameState extends BasicGameState {
 
 	public static int playerLives = 3;
 	public static Image lifeImage;
-	
-	public static int deadCount = 0;
+
+	public static double deadCount = 0;
+	public boolean win = false;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		playerXPosition = 610;
+		playerYPosition = 630;
+		ticks = 0;
+		deathTicks = 0;
+		playerTicks = 0;
+		invulnTicks = 0;
+		largeInvaderRow1 = new LargeInvader[10];
+		largeInvaderRow2 = new LargeInvader[10];
+		smallInvaderRow1 = new SmallInvader[10];
+		smallInvaderRow2 = new SmallInvader[10];
+		smallInvaderRow3 = new SmallInvader[10];
+
+		largeInvader = new LargeInvader[2][10];
+		smallInvader = new SmallInvader[3][10];
+
+		playerScore = 0;
+		exit = false;
+
+		originalHighScore = 0;
+		highScore = 0;
+		highScoreString = "";
+
+		fileName = "highScore.txt";
+
+		line = null;
+
+		playerLives = 3;
+		Image lifeImage;
+
+		deadCount = 0;
+		win = false;
+
 		// tracyImage = new Image("textures/tracyDepot2/largeTracy1.png");
 		player = new Player(playerXPosition, playerYPosition);
 
@@ -119,44 +152,21 @@ public class GameState extends BasicGameState {
 
 		originalHighScore = Integer.parseInt(highScoreString);
 		highScore = originalHighScore;
-
-		/*
-		 * for (int i = 0; i < largeInvaderRow1.length; i++) {
-		 * largeInvaderRow1[i] = new LargeInvader(xStart, yStart); xStart +=
-		 * 100; }
-		 * 
-		 * yStart += 100; for (int i = 0; i < largeInvaderRow2.length; i++) {
-		 * largeInvaderRow2[i] = new LargeInvader(xStart, yStart); xStart +=
-		 * 100;
-		 * 
-		 * }
-		 */
-
-		/*
-		 * xStart = 100; yStart = 400; for (int i = 0; i <
-		 * smallInvaderRow1.length; i++) { smallInvaderRow1[i] = new
-		 * SmallInvader(xStart, yStart); xStart += 100; } yStart += 100; for
-		 * (int i = 0; i < smallInvaderRow2.length; i++) { smallInvaderRow2[i] =
-		 * new SmallInvader(xStart, yStart); xStart += 100; } yStart+= 100; for
-		 * (int i = 0; i < smallInvaderRow3.length; i++) { smallInvaderRow3[i] =
-		 * new SmallInvader(xStart, yStart); xStart += 100; }
-		 */
-
 	}
 
 	float loops = 0;
 	float xTrans = 0.3f;
 	String direction = "right";
 	boolean allDead = false;
+
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		
-		g.drawString("DeadCount:   " + deadCount, 0, 60);
+
+		// g.drawString("DeadCount: " + deadCount, 0, 60);
 		if (deadCount == 50) {
-			sbg.enterState(Main.GAMEOVER_STATE, new RotateTransition(), new EmptyTransition());
+			win = true;
 		}
-		
-		
+
 		g.drawString("" + playerScore, 600, 0);
 
 		g.drawString("High Score: " + highScore, 250, 0);
@@ -165,7 +175,7 @@ public class GameState extends BasicGameState {
 		}
 
 		g.drawString("Lives:" + playerLives, 0, 10);
-		g.drawString("" + playerTicks, 100, 100);
+		// g.drawString("" + playerTicks, 100, 100);
 
 		if (UFO.countTicks == true) {
 			ticks++;
@@ -299,6 +309,7 @@ public class GameState extends BasicGameState {
 			}
 
 		} else {
+			g.drawString("Boom, you're dead boi", (Main.GAME_WIDTH / 2) - 100, Main.GAME_HEIGHT / 2);
 
 		}
 
@@ -306,9 +317,24 @@ public class GameState extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		if (win == true) {
+			if (originalHighScore < highScore) {
+				try {
+					FileWriter fileWriter = new FileWriter(fileName);
+					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+					bufferedWriter.write(Integer.toString(highScore));
+					bufferedWriter.close();
+				} catch (IOException e) {
+					System.out.println("Error writing to file '" + fileName + "'");
+					e.printStackTrace();
+				}
+			}
+			sbg.enterState(Main.WIN_STATE, new RotateTransition(), new EmptyTransition());
+		}
 		if (exit == true) {
 			if (originalHighScore < highScore) {
-        try {
+				try {
 					FileWriter fileWriter = new FileWriter(fileName);
 					BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 

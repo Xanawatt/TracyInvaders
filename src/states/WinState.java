@@ -12,7 +12,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import characters.Player;
 import main.Main;
 
-public class GameoverState extends BasicGameState {
+public class WinState extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame sbg) throws SlickException {
@@ -21,7 +21,7 @@ public class GameoverState extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		g.drawString("GAME OVER!!!",(Main.GAME_WIDTH / 2) - 100, (Main.GAME_HEIGHT / 2) - 10);
+		g.drawString("YOU WIN!!!",(Main.GAME_WIDTH / 2) - 100, (Main.GAME_HEIGHT / 2) - 10);
 		g.drawString("Accuracy: " +  Player.accuracyPercent * 100 + "%", (Main.GAME_WIDTH / 2) - 100, Main.GAME_HEIGHT / 2);
 		g.drawString("Press Enter to play again", (Main.GAME_WIDTH / 2) - 100, (Main.GAME_HEIGHT / 2) + 10);
 	}
@@ -37,7 +37,7 @@ public class GameoverState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		return 2;
+		return 4;
 	}
 
 }
