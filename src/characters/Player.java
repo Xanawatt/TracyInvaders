@@ -24,8 +24,8 @@ public class Player {
 	private final int PLAYER_HEIGHT = 32;
 	private final int PROJECTILE_WIDTH = 2;
 	private final int PROJECTILE_HEIGHT = 12;
-	public int shotCount;
-	public static float accuracyPercent;
+	public double shotCount;
+	public static double accuracyPercent;
 	public static boolean countTicks = false;
 	public static boolean invuln = false;
 	public static boolean deathPause = false;
@@ -126,7 +126,7 @@ public class Player {
 			if (canShoot == true) {
 				projectile.setLocation(player.getX() + 25, player.getY());
 				shotCount++;
-				//accuracyPercent = deadCount/shotCount
+				accuracyPercent = GameState.deadCount/shotCount;
 				canShoot = false;
 			}
 		}

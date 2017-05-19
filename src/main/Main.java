@@ -10,6 +10,7 @@ import states.GameState;
 import states.GameoverState;
 import states.HighScoreState;
 import states.MenuState;
+import states.WinState;
 
 public class Main extends StateBasedGame {
 	public static AppGameContainer appgc;
@@ -22,6 +23,7 @@ public class Main extends StateBasedGame {
 	public static final int GAME_STATE = 1;
 	public static final int GAMEOVER_STATE = 2;
 	public static final int HIGH_SCORE_STATE = 3;
+	public static final int WIN_STATE = 4;
 
 	public Main(String name) {
 		super(name);
@@ -29,6 +31,7 @@ public class Main extends StateBasedGame {
 		this.addState(new GameState());
 		this.addState(new GameoverState());
 		this.addState(new HighScoreState());
+		this.addState(new WinState());
 	}
 
 	@Override
