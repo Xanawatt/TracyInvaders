@@ -90,7 +90,7 @@ public class LargeInvader {
 				&& GameState.player.projectile.getMinY() >= largeInvader.getMinY()
 				&& GameState.player.projectile.getMaxX() < largeInvader.getMaxX()
 				&& GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
-			LargeInvader.myFILES.stop();
+			//LargeInvader.myFILES.stop();
 			myFILES.playAsSoundEffect(1.f, 1.f, false);
 			isDead = true;
 
