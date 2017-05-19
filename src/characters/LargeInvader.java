@@ -1,5 +1,7 @@
 package characters;
 
+import java.io.IOException;
+
 import javax.swing.text.AttributeSet.ColorAttribute;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -16,6 +18,9 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 import main.Main;
 import states.GameState;
@@ -38,7 +43,7 @@ public class LargeInvader {
 	private final int PROJECTILE_HEIGHT = 12;
 	public boolean canShoot = true;
 	public boolean spaceState = false;
-
+	public static Audio myFILES;
 	public LargeInvader(int x, int y) throws SlickException {
 		LARGE_INVADER_FRAME1 = new Image("textures/tracyDepot2/largeTracy1.png");
 		LARGE_INVADER_FRAME2 = new Image("textures/tracyDepot2/largeTracy2.png");
@@ -52,6 +57,11 @@ public class LargeInvader {
 		PROJECTILE_IMAGE = new Image("textures/tracyDepot2/projectile.png");
 		projectile = new Rectangle(1281, 721, PROJECTILE_WIDTH, PROJECTILE_HEIGHT);
 		projectileVelocity = new Vector2f(0, 5);
+		try {
+			myFILES = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("myFiles.ogg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public float getX() {
@@ -80,6 +90,8 @@ public class LargeInvader {
 				&& GameState.player.projectile.getMinY() >= largeInvader.getMinY()
 				&& GameState.player.projectile.getMaxX() < largeInvader.getMaxX()
 				&& GameState.player.projectile.getMinX() > largeInvader.getMinX()) {
+			LargeInvader.myFILES.stop();
+			myFILES.playAsSoundEffect(1.f, 1.f, false);
 			isDead = true;
 
 			GameState.playerScore = GameState.playerScore + 5;
